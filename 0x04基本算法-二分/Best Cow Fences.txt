@@ -1,0 +1,38 @@
+有长度为N的数组arr，在其中选出长度为F的连续子数列，使其平均值最大
+假设平均值是x（总数组中最小值<=x<=总数组中最大值）
+假设这段子序列的左端点是i，右端点是j
+那么(a[i]+a[i+1]+a[i+2]+......+a[j])/(j-i+1)>=x
+--->(a[i]+a[i+1]+a[i+2]+......+a[j])>=x*(j-i+1)
+--->(a[i]-x)+(a[i+1]-x)+(a[i+2]-x)+......+(a[j]-x)>=0
+对arr数组每一项减x，记作新数组为b，
+那么b[i]+b[i+1]+b[i+2]+......+b[j]>=0
+用一个前缀和数组prefix来记录b
+那么  prefix[j+1]-prefix[i]>=0
+那么 问题转化为在一段数组中(prefix)对于给定的j，找出是否存在i，使得prefix[j+1]-prefix[i]>=0  
+其中j-i+1>=F--->  i<=j+1-F
+当 j+1=F           i=0；
+    j+1=F+1       i=1;
+    j+1=F+2       i=2;
+    .........             .........
+    j+1=N+1      i=N-F+1;
+i的最小值和最大值是可以确定的，那么可以构建一个记录i最小值的数组 mini[N-F+2]
+mini[0]=prefix[0]
+mini[1]=min{mini[0],prefix[1]};
+mini[2]=min{mini[1],prefix[2]};
+......
+mini[N-F+1]=min{mini[N-F],prefix[N-F+1]};
+这一步可以在    用一个前缀和数组prefix来记录b   这一步同步完成
+接下来用一步
+for(i=F;i<=N;i++)
+{
+	if(prefix[i]-mini[i-F+1]>=0) return 1;
+}
+retrun 0
+就可以了
+
+对于x采用二分法
+初始left=arr里最小值  right=arr里最大
+x=(lft+right)/2
+如果该x通过了  那么left=x+1     x=(left+right)/2
+如果x没通过      那么right=x-1   x=(left+right)/2
+直到left>right
