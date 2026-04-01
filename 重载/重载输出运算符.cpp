@@ -20,7 +20,7 @@ ostream& operator<<(ostream &cout,const person &p)
     
 int main()
 {
-    person p1;
-    cout<<p1;
+    person p1,p2;
+    cout<<p1<<p2;
     return 0;
 }
