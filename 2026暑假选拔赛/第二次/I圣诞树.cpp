@@ -20,6 +20,7 @@ long long upup(long long a,long long b)//计算a/b向上取整
     {
         return m;
     }
+    return 0;
 }
 long long lowlow(long long a,long long b)//计算a/b向下取整
 {
@@ -40,6 +41,7 @@ long long lowlow(long long a,long long b)//计算a/b向下取整
         m--;
         return m;
     }
+    return 0;
 }
 long long jisuan()
 {
